@@ -16,7 +16,7 @@ from config import DEBUG, HAPROXY_CFG_TEMPLATE, HAPROXY_CFG_PATH, \
 
 LOG = logging.getLogger(__name__)
 
-def write_ssl()
+def write_ssl():
     if os.getenv('SSL_CERT'):
         LOG.info("==========BEGIN WRITE SSL==========")
         save_to_file('/etc/ssl/haproxy.pem',os.getenv('SSL_CERT').replace('\\n','\n'))
