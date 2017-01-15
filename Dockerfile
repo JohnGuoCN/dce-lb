@@ -8,8 +8,8 @@ RUN apk update && \
 COPY requirements.txt /dce-lb/requirements.txt
 
 RUN cd /dce-lb && \
-    pip install --upgrade pip -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com && \
-    pip install -r requirements.txt -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com
+    pip install --upgrade pip && \
+    pip install -r requirements.txt
 
 ENV SERVICE_PORT=80 \
 	RSYSLOG_DESTINATION=127.0.0.1 \
