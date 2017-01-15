@@ -38,8 +38,7 @@ listen stats
 
 frontend default
     bind :80
-    bind *:443 ssl crt /etc/ssl/xip.io/xip.io.pem
-    {{ if .Config.SSLCert }}bind *:{{ .Config.SSLPort }} ssl crt {{ .Config.SSLCert }} {{ .Config.SSLOpts }}{{ end }}
+    {{ if SSL_CERT }}bind *:443 ssl crt {{ SSL_CERT }}{{ end }}
 
     use_backend default_backend
 

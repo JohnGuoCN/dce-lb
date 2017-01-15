@@ -1,4 +1,4 @@
-FROM daocloud.io/haproxy:1.6.5-alpine
+FROM haproxy:1.6.5-alpine
 
 MAINTAINER Kay.Yan <kay.yan@daocloud.io> 
 
@@ -25,7 +25,7 @@ ENV SERVICE_PORT=80 \
     STATS_AUTH_USER="admin" \
     STATS_AUTH_PASS="admin"
 
-EXPOSE 80 1936
+EXPOSE 80 443 1936
 
 ENTRYPOINT ["sh"]
 CMD ["/dce-lb/entrypoint.sh"]
