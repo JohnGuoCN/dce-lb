@@ -1,0 +1,53 @@
+global
+    log {{ RSYSLOG_DESTINATION }}  local0
+    log {{ RSYSLOG_DESTINATION }}  local1 notice
+    log-send-hostname
+    maxconn  {{ MAXCONN }}
+    pidfile /var/run/haproxy.pid
+
+    stats socket /tmp/haproxy.sock level admin
+
+defaults
+    log global
+    retries 3
+    option redispatch
+    option httplog
+    option dontlognull
+    option http-server-close
+    option forwardfor
+    option splice-response
+    timeout connect {{ CONNECT_TIMEOUT }}
+    timeout client {{ CLIENT_TIMEOUT }}
+    timeout server {{ SERVER_TIMEOUT }}
+    {% if CHECK_TIMEOUT %}
+    timeout check {{ CHECK_TIMEOUT }}
+    {% endif %}
+
+listen stats
+  bind 0.0.0.0:1936
+  mode http
+  stats enable
+  timeout connect 10s
+  timeout client 1m
+  timeout server 1m
+  monitor-uri /_ping
+  stats uri /
+  stats refresh 5s
+  stats realm DCE LoadBlance\ Statistics
+  stats auth {{ STATS_AUTH_USER }}:{{ STATS_AUTH_PASS }}
+
+frontend default
+    bind :80
+
+    use_backend default_backend
+
+backend default_backend
+    balance {{ BALANCE_ALGORITHM }}
+    mode {{ MODE }}
+
+    http-response add-header X-Request-Start %Ts.%ms
+    http-request set-header X-Forwarded-Port %[dst_port]
+
+    {% for host in SERVICE_HOSTS %}
+    server {{ SERVICE_NAME }}-{{ host }} {{ host }}:{{ SERVICE_PORT }} check inter {{ CHECK_INTERVAL }} fall {{ CHECK_FAIL_THRESHOLD }} rise {{ CHECK_RISE_THRESHOLD }}
+    {% endfor %}
