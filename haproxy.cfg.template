@@ -39,7 +39,7 @@ listen stats
 frontend default
     bind :80
     {% if SSL_CERT %}
-    bind *:443 ssl crt {{ SSL_CERT }}
+    bind *:443 ssl crt /etc/ssl/haproxy.pem
     {% endif %}
 
     use_backend default_backend

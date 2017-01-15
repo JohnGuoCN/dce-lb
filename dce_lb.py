@@ -16,6 +16,12 @@ from config import DEBUG, HAPROXY_CFG_TEMPLATE, HAPROXY_CFG_PATH, \
 
 LOG = logging.getLogger(__name__)
 
+def write_ssl()
+    if os.getenv('SSL_CERT'):
+        LOG.info("==========BEGIN WRITE SSL==========")
+        save_to_file('/etc/ssl/haproxy.pem',os.getenv('SSL_CERT').replace('\\n','\n'))
+        LOG.info("==========END WRITE SSL==========")
+
 def run_haproxy(msg=None):
     LOG.info("==========BEGIN==========")
     if msg:
@@ -100,6 +106,7 @@ def main():
     signal.signal(signal.SIGUSR1, on_user_reload)
     signal.signal(signal.SIGTERM, sys.exit)
 
+    write_ssl()
     run_haproxy("Initial start")
     while True:
         listen_dns_srv_changed()
