@@ -61,7 +61,6 @@ Settings in this part is immutable, you have to redeploy HAProxy service to make
 |CHECK_INTERVAL|2000||
 |CHECK_RISE_THRESHOLD|2||
 |CHECK_FAIL_THRESHOLD|3||
-|APPSESSION||sticky session option, possible value `JSESSIONID len 52 timeout 3h`. See:[HAProxy:appsession](http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#4-appsession)|
 |COOKIE||sticky session option. Possible value `SRV insert indirect nocache`. See:[HAProxy:cookie](http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#4-cookie)|
 |SSL_CERT||ssl cert, a pem file with private key followed by public certificate, '\n'(two chars) as the line separator|
 
@@ -71,8 +70,8 @@ Settings in this part is immutable, you have to redeploy HAProxy service to make
 There are three method to setup affinity and sticky session:
 
 1. set `BALANCE=source` in your application service. When setting `source` method of balance, HAProxy will hash the client IP address and make sure that the same IP always goes to the same server.
-2. set `APPSESSION=<value>`. use application session to determine which server a client should connect to. Possible value of `<value>` could be `JSESSIONID len 52 timeout 3h`
 2. set `COOKIE=<value>`. use application cookie to determine which server a client should connect to. Possible value of `<value>` could be `SRV insert indirect nocache`
+3. 'appsession' is not supported anymore, please check the documentation.
 
 Check [HAProxy:appsession](http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#4-appsession) and [HAProxy:cookie](http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#4-cookie) for more information.
 

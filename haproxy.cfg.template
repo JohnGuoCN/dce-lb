@@ -38,7 +38,7 @@ listen stats
 
 frontend default
     bind :80
-    {{% if SSL_CERT %}}
+    {% if SSL_CERT %}
     bind *:443 ssl crt {{ SSL_CERT }}
     {% endif %}
 
@@ -54,10 +54,6 @@ backend default_backend
     {% for host in SERVICE_HOSTS %}
     server {{ SERVICE_NAME }}-{{ host }} {{ host }}:{{ SERVICE_PORT }} check inter {{ CHECK_INTERVAL }} fall {{ CHECK_FAIL_THRESHOLD }} rise {{ CHECK_RISE_THRESHOLD }}
     {% endfor %}
-
-    {% if APPSESSION %}
-    appsession {{ APPSESSION }}
-    {% endif %}
 
     {% if COOKIE %}
     cookie {{ COOKIE }}
