@@ -4,6 +4,7 @@ services:
     build: .
     ports: 
     - 8080:80
+    - 8443:443
     - 1936
     environment:
       MODE: http

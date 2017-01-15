@@ -63,6 +63,7 @@ Settings in this part is immutable, you have to redeploy HAProxy service to make
 |CHECK_FAIL_THRESHOLD|3||
 |APPSESSION||sticky session option, possible value `JSESSIONID len 52 timeout 3h`. See:[HAProxy:appsession](http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#4-appsession)|
 |COOKIE||sticky session option. Possible value `SRV insert indirect nocache`. See:[HAProxy:cookie](http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#4-cookie)|
+|SSL_CERT||ssl cert, a pem file with private key followed by public certificate, '\n'(two chars) as the line separator|
 
 
 ## Affinity and session stickiness
@@ -74,3 +75,8 @@ There are three method to setup affinity and sticky session:
 2. set `COOKIE=<value>`. use application cookie to determine which server a client should connect to. Possible value of `<value>` could be `SRV insert indirect nocache`
 
 Check [HAProxy:appsession](http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#4-appsession) and [HAProxy:cookie](http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#4-cookie) for more information.
+
+
+## 参考
+
+[在 HAproxy 1.5 中使用 SSL 证书](http://www.oschina.net/translate/haproxy-ssl-termation-pass-through)
