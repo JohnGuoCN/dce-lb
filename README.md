@@ -76,6 +76,7 @@ There are three method to setup affinity and sticky session:
 
 Check [HAProxy:appsession](http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#4-appsession) and [HAProxy:cookie](http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#4-cookie) for more information.
 
+[HAProxy负载均衡保持客户端和服务器Session亲缘性的三种方式](http://www.tuicool.com/articles/vuERr2)
 
 ## 参考
 
