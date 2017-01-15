@@ -38,7 +38,9 @@ listen stats
 
 frontend default
     bind :80
-    {{ if SSL_CERT }}bind *:443 ssl crt {{ SSL_CERT }}{{ end }}
+    {{% if SSL_CERT %}}
+    bind *:443 ssl crt {{ SSL_CERT }}
+    {% endif %}
 
     use_backend default_backend
 
